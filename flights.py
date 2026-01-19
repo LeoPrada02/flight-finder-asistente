@@ -49,7 +49,7 @@ def fetch_flight_price(origin_iata, destination_iata): #YYYY-MM-DD
     data = response.json()
 
     if not data["data"]:
-        return "No flights found"
+        return "No se encontraron vuelos disponibles"
 
     price = data["data"][0]["price"]["total"]
     currency = data["data"][0]["price"]["currency"]
@@ -64,7 +64,7 @@ def get_ticket_price(origin_city, destination_city):
     destination_iata = CITY_TO_IATA.get(destination_city.lower())
 
     if not origin_iata or not destination_iata:
-        return "Unknown origin or destination"
+        return "Lugar de origen o destino no reconocido"
 
     try:
         return fetch_flight_price(origin_iata, destination_iata)
