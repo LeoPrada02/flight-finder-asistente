@@ -29,7 +29,7 @@ tools = [
 ]
 
 
-def handle_tool_call(message):
+def handle_tool_call(message):  #Una funcion que maneja la llamada a la herramienta, devuelve la respuesta de la herramienta lista para ser añadida al historial
     tool_call = message.tool_calls[0]
     arguments = json.loads(tool_call.function.arguments)
 
@@ -48,7 +48,7 @@ def handle_tool_call(message):
         "tool_call_id": tool_call.id
     }
 
-    return response, destination_city
+    return response, destination_city  #Destination city no se usa en este codigo, pero lo uso en una maquina en colab para generar imagenes
 
 
 system_message = "Eres un asistente útil para una aerolínea llamada FlightAI. "
@@ -60,7 +60,7 @@ system_message += "Se siempre preciso. Si no sabes la respuesta, dilo. el usuari
 
 
 
-def chat(history):
+def chat(history):  #Funcion que sera usada en el ui de gradio
     messages = [
         {"role": "system", "content": system_message}
     ] + history
@@ -74,7 +74,9 @@ def chat(history):
     )
 
     if response.choices[0].finish_reason == "tool_calls":
+        
         tool_message = response.choices[0].message
+        
         tool_response, destination_city = handle_tool_call(tool_message)
 
         messages.append(tool_message)
