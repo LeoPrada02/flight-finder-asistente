@@ -1,0 +1,1 @@
+Este proyecto incluye la opcion de generacion de imagenes, gracias al codigo abierto y huggingface, su implementacion esta siendo testeada en google colab
